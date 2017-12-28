@@ -16,6 +16,31 @@ It should make multiples question, like:
   + Has .ENV variables (In case that the response of the previous question is `No`, it will ask to create a global file with the .env variables)
   + Want to upload files (It will create a file and an endpoint to upload files to AWS S3, you must update the variables)
 
+## JWT
+To use it you should create a JWT and set it in each request using the headers. It is with Bearer authentication.
+### E.g
+```
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
+```
+To use this token you should set the variable `JWTKEY` on the file `/variables.env`
+
+```
+JWTKEY=secret
+```
+To learn more about JWT click [here](https://jwt.io/)
+
+## Endpoints
+Request      | Response
+-------------|------------------------
+GET /example | This is a /GET example
+POST /example| This is a /POST example, you just post ${test}
+PUT /example | This is a /PUT example, you just put ${test}
+DELETE /example | This is a /DELETE example, you just deleted ${test}
+```
+GET /example
+```
+
+
 ## License
 ### The MIT License
 
