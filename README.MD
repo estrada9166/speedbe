@@ -2,7 +2,14 @@
 
 Speedbe will help you to create a backend with `Node.js` and express.
 
+## Install
+```shell
+$ npm install -g speedbe
+```
 ## use
+```shell
+$ speedbe
+```
 It should make multiples question, like:
   + Name of the project (It will create a folder in the root that you call `speedbe`)
   + Has authentication (It will create a middleware that validate if the token set on the headers is valid with JWT)
