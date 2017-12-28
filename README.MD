@@ -36,10 +36,6 @@ GET /example | This is a /GET example
 POST /example| This is a /POST example, you just post ${test}
 PUT /example | This is a /PUT example, you just put ${test}
 DELETE /example | This is a /DELETE example, you just deleted ${test}
-```
-GET /example
-```
-
 
 ## License
 ### The MIT License
