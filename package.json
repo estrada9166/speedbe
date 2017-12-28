@@ -1,6 +1,6 @@
 {
   "name": "speedbe",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Create new backend proyects with node.js and express",
   "bin": {
     "speedbe": "./bin/speedbe.js"
@@ -10,6 +10,19 @@
   },
   "author": "estrada9166",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/estrada9166/speedbe.git"
+  },
+  "keywords": [
+    "nodejs",
+    "generator",
+    "express"
+  ],
+  "bugs": {
+    "url": "https://github.com/estrada9166/speedbe/issues"
+  },
+  "homepage": "https://github.com/estrada9166/speedbe#readme",
   "dependencies": {
     "args": "^3.0.4",
     "chalk": "^2.1.0",
