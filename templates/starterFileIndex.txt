@@ -1,0 +1,27 @@
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+#auth
+#dotenv
+
+// Require all the routes
+const example = require('./routes/example');
+#image
+
+const port = process.env.PORT || 5000;
+
+// Use the middlewares
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '2mb', type: 'application/json'}));
+
+// Create all the endpoints
+app.get('/example', #authMiddleware example.getExample)
+app.post('/example', #authMiddleware example.newExample)
+app.put('/example', #authMiddleware example.updateExample)
+app.delete('/example', #authMiddleware example.deleteExample)
+
+#imageRoute
+
+app.listen(port, () => {
+  console.log(`running on port ${port}`)
+})
