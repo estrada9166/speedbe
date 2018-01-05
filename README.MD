@@ -16,6 +16,11 @@ It should make multiples question, like:
   + Has .ENV variables (In case that the response of the previous question is `No`, it will ask to create a global file with the .env variables)
   + Want to upload files (It will create a file and an endpoint to upload files to AWS S3, you must update the variables)
 
+## Run it
+```shell
+$ node index
+```
+
 ## JWT
 To use it you should create a JWT and set it in each request using the headers. It is with Bearer authentication.
 ### E.g
