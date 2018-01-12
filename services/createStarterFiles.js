@@ -15,6 +15,7 @@ async function createStarterFiles (dirPath) {
     }
     await createIndexFile(dirPath)
     await createRoutesFile(dirPath)
+    await createGitIgnoreFile(dirPath)
   } catch (err) {
     throw err
   }
@@ -32,6 +33,15 @@ async function createRoutesFile (dirPath) {
   try {
     await fs.ensureDirSync(dirPath)
     await fs.copySync(`${templatesPath}/starterFileRoutes.txt`, `${dirPath}/routes/example.js`)
+  } catch (err) {
+    throw err
+  }
+}
+
+async function createGitIgnoreFile (dirPath) {
+  try {
+    await fs.ensureDirSync(dirPath)
+    await fs.copySync(`${templatesPath}/starterFileGitignore.txt`, `${dirPath}/.gitignore`)
   } catch (err) {
     throw err
   }

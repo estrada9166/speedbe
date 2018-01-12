@@ -6,7 +6,7 @@ const spinner = ora('Creating the project')
 const createPackage = require('../services/createPackage')
 const createStarterFiles = require('../services/createStarterFiles')
 const createAuth = require('../services/createAuth')
-const createEnvVariables = require('../services/createEnvVariables')
+const { createEnvVariables, createExampleEnvVariables } = require('../services/createEnvVariables')
 const createUploadImage = require('../services/createUploadImage')
 const cleanTemplate = require('../services/cleanTemplate')
 
@@ -24,14 +24,6 @@ const questions = [
   },
   {
     type: 'confirm',
-    name: 'variables',
-    message: 'Has .ENV variables',
-    when (answers) {
-      return !answers['auth']
-    }
-  },
-  {
-    type: 'confirm',
     name: 'uploadFiles',
     message: 'Want to upload files'
   }
@@ -46,17 +38,16 @@ async function handleResponse (answers) {
     spinner.start()
     const folderPath = await createPackage(answers['name'])
     await createStarterFiles(folderPath)
+    await createEnvVariables(folderPath)
+
     if (answers['auth']) {
       await createAuth(folderPath)
-      await createEnvVariables(folderPath)
-    }
-    if (answers['variables'] && !answers['auth']) {
-      await createEnvVariables(folderPath)
     }
     if (answers['uploadFiles']) {
       await createUploadImage(folderPath, answers['auth'])
     }
     await cleanTemplate(folderPath)
+    await createExampleEnvVariables(folderPath)
     spinner.stop()
     console.log('Ready to hack!')
   } catch (err) {

@@ -16,6 +16,27 @@ It should make multiples question, like:
   + Has .ENV variables (In case that the response of the previous question is `No`, it will ask to create a global file with the .env variables)
   + Want to upload files (It will create a file and an endpoint to upload files to AWS S3, you must update the variables)
 
+## Project Structure
+```shell
+├── index.js
+├── node_modules
+├── package-lock.json
+├── package.json
+├── routes
+├── variables.env
+└── variables.env.example
+```
+`variables.env.example` is the file that serves as example for other people contributing to your project, it contains all the needed *env* variables with dummy values to be replaced after your project gets cloned (`variables.env` does not get tracked by git).
+
+## Before running this project (after cloned from *github*)
+* change the name of `variables.env.example` to `variables.env`
+* inside `variables.env` replace the value of the variables with your values
+
+## How to Run this project
+```shell
+$ node index
+```
+
 ## JWT
 To use it you should create a JWT and set it in each request using the headers. It is with Bearer authentication.
 ### E.g

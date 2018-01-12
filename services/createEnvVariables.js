@@ -3,6 +3,7 @@
 const path = require('path')
 const fs = require('fs-extra')
 const { spawnSync } = require('child_process')
+const templatesPath = path.join(__dirname, '..', 'templates')
 
 /**
  * return the path of the directory
@@ -21,6 +22,18 @@ async function createEnvVariables (dirPath) {
   }
 }
 
+/**
+ * creates an example file of varibale.env that will be track by git and serve as example of env needed
+ * @param  {String} dirName the name of the project and dirname
+ */
+async function createExampleEnvVariables(dirPath) {
+  try {
+    await fs.copySync(`${dirPath}/variables.env`, `${dirPath}/variables.env.example`)
+  } catch (err) {
+    throw err
+  }
+}
+
 function installDotenv (dirPath) {
   new Promise(resolve => {
     resolve(spawnSync('sh', [`${path.join(__dirname, '..', 'scripts', 'installDotenv.sh')}`], {
@@ -31,8 +44,8 @@ function installDotenv (dirPath) {
 
 async function createDotenvFile (dirPath) {
   try {
-    const port = 'PORT=5000\nJWTKEY=YOUR_JWT_KEY\n'
-    await fs.outputFileSync(`${dirPath}/variables.env`, port)
+    await fs.ensureDirSync(dirPath)
+    await fs.copySync(`${templatesPath}/starterFileVariablesEnv.txt`, `${dirPath}/variables.env`)
   } catch (err) {
     throw err
   }
@@ -48,4 +61,4 @@ async function importFile (dirPath) {
   }
 }
 
-module.exports = createEnvVariables
+module.exports = { createEnvVariables, createExampleEnvVariables }

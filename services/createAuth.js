@@ -16,6 +16,7 @@ async function createAuth (dirPath) {
     }
     await installJWT(dirPath)
     await addMiddlewareRoute(dirPath)
+    await appendEnvVariables(dirPath)
   } catch (err) {
     throw err
   }
@@ -35,6 +36,15 @@ async function addMiddlewareRoute (dirPath) {
     const requireAuth = data.replace(/^#auth$/gm, "const jwt = require('express-jwt')")
     const replaceMiddleware = requireAuth.replace(/#authMiddleware/g, 'jwt({secret: process.env.JWTKEY}),')
     await fs.outputFileSync(`${dirPath}/index.js`, replaceMiddleware)
+  } catch (err) {
+    throw err
+  }
+}
+
+async function appendEnvVariables (dirPath) {
+  try {
+    const data = 'JWTKEY=YOUR_JWT_KEY\n'
+    await fs.appendFileSync(`${dirPath}/variables.env`, data)
   } catch (err) {
     throw err
   }
