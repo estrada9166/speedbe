@@ -39,14 +39,18 @@ $ node index
 
 ## JWT
 To use it you should create a JWT and set it in each request using the headers. It is with Bearer authentication.
-### E.g
-```
-Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ
-```
-To use this token you should set the variable `JWTKEY` on the file `/variables.env`
 
+To create a new token, you can make a post to the endpoint toke, with the data you want to pass to it:
 ```
-JWTKEY=secret
+POST /token
+```
+The response should be something like:
+```
+{
+    "success": true,
+    "type": "Bearer",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ"
+}
 ```
 To learn more about JWT click [here](https://jwt.io/)
 

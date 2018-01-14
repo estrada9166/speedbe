@@ -1,4 +1,4 @@
-'use strinct'
+'use strict'
 
 const getExample = (req, res) => {
   res.json('This is a /GET example')

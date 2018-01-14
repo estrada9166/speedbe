@@ -27,11 +27,7 @@ async function createEnvVariables (dirPath) {
  * @param  {String} dirName the name of the project and dirname
  */
 async function createExampleEnvVariables(dirPath) {
-  try {
-    await fs.copySync(`${dirPath}/variables.env`, `${dirPath}/variables.env.example`)
-  } catch (err) {
-    throw err
-  }
+  await fs.copySync(`${dirPath}/variables.env`, `${dirPath}/variables.env.example`)
 }
 
 function installDotenv (dirPath) {
@@ -43,22 +39,14 @@ function installDotenv (dirPath) {
 }
 
 async function createDotenvFile (dirPath) {
-  try {
-    await fs.ensureDirSync(dirPath)
-    await fs.copySync(`${templatesPath}/starterFileVariablesEnv.txt`, `${dirPath}/variables.env`)
-  } catch (err) {
-    throw err
-  }
+  await fs.ensureDirSync(dirPath)
+  await fs.copySync(`${templatesPath}/starterFileVariablesEnv.txt`, `${dirPath}/variables.env`)
 }
 
 async function importFile (dirPath) {
-  try {
-    const data = await fs.readFileSync(`${dirPath}/index.js`, 'utf8')
-    const result = data.replace(/^#dotenv$/gm, "require('dotenv').config({ path: 'variables.env' })")
-    await fs.outputFileSync(`${dirPath}/index.js`, result)
-  } catch (err) {
-    throw err
-  }
+  const data = await fs.readFileSync(`${dirPath}/index.js`, 'utf8')
+  const result = data.replace(/^#dotenv$/gm, "require('dotenv').config({ path: 'variables.env' })")
+  await fs.outputFileSync(`${dirPath}/index.js`, result)
 }
 
 module.exports = { createEnvVariables, createExampleEnvVariables }

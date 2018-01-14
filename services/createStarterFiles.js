@@ -22,29 +22,17 @@ async function createStarterFiles (dirPath) {
 }
 
 async function createIndexFile (dirPath) {
-  try {
-    await fs.copySync(`${templatesPath}/starterFileIndex.txt`, `${dirPath}/index.js`)
-  } catch (err) {
-    throw err
-  }
+  await fs.copySync(`${templatesPath}/starterFileIndex.txt`, `${dirPath}/index.js`)
 }
 
 async function createRoutesFile (dirPath) {
-  try {
-    await fs.ensureDirSync(dirPath)
-    await fs.copySync(`${templatesPath}/starterFileRoutes.txt`, `${dirPath}/routes/example.js`)
-  } catch (err) {
-    throw err
-  }
+  await fs.ensureDirSync(dirPath)
+  await fs.copySync(`${templatesPath}/starterFileRoutes.txt`, `${dirPath}/routes/example.js`)
 }
 
 async function createGitIgnoreFile (dirPath) {
-  try {
-    await fs.ensureDirSync(dirPath)
-    await fs.copySync(`${templatesPath}/starterFileGitignore.txt`, `${dirPath}/.gitignore`)
-  } catch (err) {
-    throw err
-  }
+  await fs.ensureDirSync(dirPath)
+  await fs.copySync(`${templatesPath}/starterFileGitignore.txt`, `${dirPath}/.gitignore`)
 }
 
 module.exports = createStarterFiles

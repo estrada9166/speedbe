@@ -34,36 +34,24 @@ function installAWSSdk (dirPath) {
 }
 
 async function appendEnvVariables (dirPath) {
-  try {
-    const data = 'AWS_ACCESS_KEY=YOUR_AWS_ACCESS_KEY\nAWS_SECRET=YOUR_AWS_SECRET\n'
-    await fs.appendFileSync(`${dirPath}/variables.env`, data)
-  } catch (err) {
-    throw err
-  }
+  const data = 'AWS_ACCESS_KEY=YOUR_AWS_ACCESS_KEY\nAWS_SECRET=YOUR_AWS_SECRET\n'
+  await fs.appendFileSync(`${dirPath}/variables.env`, data)
 }
 
 async function createFile (dirPath) {
-  try {
-    await fse.copySync(`${templatesPath}/starterFileUploadImage.txt`, `${dirPath}/routes/uploadFile.js`)
-  } catch (err) {
-    throw err
-  }
+  await fse.copySync(`${templatesPath}/starterFileUploadImage.txt`, `${dirPath}/routes/uploadFile.js`)
 }
 
 async function addRoute (dirPath, hasAuth) {
-  try {
-    const data = await fse.readFileSync(`${dirPath}/index.js`, 'utf8')
-    const requireAuth = data.replace(/^#image$/gm, "const image = require('./routes/uploadFile')")
-    let route
-    if (hasAuth) {
-      route = requireAuth.replace(/#imageRoute/g, "app.post('/image', jwt({secret: process.env.JWTKEY}), image.uploadImage)")
-    } else {
-      route = requireAuth.replace(/#imageRoute/g, "app.post('/image', image.uploadImage)")
-    }
-    await fse.outputFileSync(`${dirPath}/index.js`, route)
-  } catch (err) {
-    throw err
+  const data = await fse.readFileSync(`${dirPath}/index.js`, 'utf8')
+  const requireAuth = data.replace(/^#image$/gm, "const image = require('./routes/uploadFile')")
+  let route
+  if (hasAuth) {
+    route = requireAuth.replace(/#imageRoute/g, "app.post('/image', jwt({secret: process.env.JWTKEY}), image.uploadImage)")
+  } else {
+    route = requireAuth.replace(/#imageRoute/g, "app.post('/image', image.uploadImage)")
   }
+  await fse.outputFileSync(`${dirPath}/index.js`, route)
 }
 
 module.exports = createUploadImage

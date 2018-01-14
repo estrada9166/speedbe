@@ -18,14 +18,10 @@ async function createAuth (dirPath) {
 }
 
 async function cleanTemplate (dirPath) {
-  try {
-    const data = await fs.readFileSync(`${dirPath}/index.js`, 'utf8')
-    const removeMiddleware = data.replace(/#authMiddleware/g, '')
-    const removeTags = removeMiddleware.replace(/#(.)+/g, '')
-    await fs.outputFileSync(`${dirPath}/index.js`, removeTags)
-  } catch (err) {
-    throw err
-  }
+  const data = await fs.readFileSync(`${dirPath}/index.js`, 'utf8')
+  const removeMiddleware = data.replace(/#authMiddleware/g, '')
+  const removeTags = removeMiddleware.replace(/#(.)+/g, '')
+  await fs.outputFileSync(`${dirPath}/index.js`, removeTags)
 }
 
 module.exports = createAuth

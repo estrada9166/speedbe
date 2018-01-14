@@ -14,9 +14,10 @@ async function createAuth (dirPath) {
     if (!dirPath) {
       throw new Error('The path cant be empty')
     }
-    await installJWT(dirPath)
-    await addMiddlewareRoute(dirPath)
-    await appendEnvVariables(dirPath)
+    await installJWT(dirPath);
+    await addMiddlewareRoute(dirPath);
+    await appendEnvVariables(dirPath);
+    await addAuthTokenEndPoint(dirPath);
   } catch (err) {
     throw err
   }
@@ -31,23 +32,23 @@ function installJWT (dirPath) {
 }
 
 async function addMiddlewareRoute (dirPath) {
-  try {
-    const data = await fs.readFileSync(`${dirPath}/index.js`, 'utf8')
-    const requireAuth = data.replace(/^#auth$/gm, "const jwt = require('express-jwt')")
-    const replaceMiddleware = requireAuth.replace(/#authMiddleware/g, 'jwt({secret: process.env.JWTKEY}),')
-    await fs.outputFileSync(`${dirPath}/index.js`, replaceMiddleware)
-  } catch (err) {
-    throw err
-  }
+  const data = await fs.readFileSync(`${dirPath}/index.js`, 'utf8')
+  const requireAuth = data.replace(/^#auth$/gm, "const jwt = require('express-jwt')")
+  const replaceMiddleware = requireAuth.replace(/#authMiddleware/g, 'jwt({secret: process.env.JWTKEY}),')
+  await fs.outputFileSync(`${dirPath}/index.js`, replaceMiddleware)
 }
 
 async function appendEnvVariables (dirPath) {
-  try {
-    const data = 'JWTKEY=YOUR_JWT_KEY\n'
-    await fs.appendFileSync(`${dirPath}/variables.env`, data)
-  } catch (err) {
-    throw err
-  }
+  const data = 'JWTKEY=YOUR_JWT_KEY\n'
+  await fs.appendFileSync(`${dirPath}/variables.env`, data)
+}
+
+async function addAuthTokenEndPoint (dirPath) {
+  const data = await fs.readFileSync(`${dirPath}/index.js`, 'utf8')
+  const requireAuth = data.replace(/^#token$/gm, "const token = require('./routes/token')")
+  const addNewRoute = requireAuth.replace(/#tokenRoute/g, "app.post('/token', token.newToken)")
+  await fs.outputFileSync(`${dirPath}/index.js`, addNewRoute)
+  await fs.copySync(`${templatesPath}/starterFileAuth.txt`, `${dirPath}/routes/token.js`)
 }
 
 module.exports = createAuth

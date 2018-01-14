@@ -1,2 +1,2 @@
 #!/usr/bin/env
-npm install -s express-jwt
+npm install -s express-jwt jsonwebtoken
