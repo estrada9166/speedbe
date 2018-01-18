@@ -45,7 +45,7 @@ async function createDotenvFile (dirPath) {
 
 async function importFile (dirPath) {
   const data = await fs.readFileSync(`${dirPath}/index.js`, 'utf8')
-  const result = data.replace(/^#dotenv$/gm, "require('dotenv').config({ path: 'variables.env' })")
+  const result = data.replace(/^#dotenv$/gm, "require('dotenv').config({ path: 'variables.env' });")
   await fs.outputFileSync(`${dirPath}/index.js`, result)
 }
 

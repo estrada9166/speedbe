@@ -1,6 +1,6 @@
-const express = require('express')
-const app = express()
-const bodyParser = require('body-parser')
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
 #auth
 #dotenv
 
@@ -18,13 +18,13 @@ app.use(bodyParser.json({limit: '2mb', type: 'application/json'}));
 // Create all the endpoints
 #tokenRoute
 
-app.get('/example',#authMiddleware example.getExample)
-app.post('/example',#authMiddleware example.newExample)
-app.put('/example',#authMiddleware example.updateExample)
-app.delete('/example',#authMiddleware example.deleteExample)
+app.get('/example',#authMiddleware example.getExample);
+app.post('/example',#authMiddleware example.newExample);
+app.put('/example',#authMiddleware example.updateExample);
+app.delete('/example',#authMiddleware example.deleteExample);
 
 #imageRoute
 
 app.listen(port, () => {
-  console.log(`running on port ${port}`)
-})
+  console.log(`running on port ${port}`);
+});
