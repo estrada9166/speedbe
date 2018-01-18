@@ -34,7 +34,7 @@ function installJWT (dirPath) {
 async function addMiddlewareRoute (dirPath) {
   const data = await fs.readFileSync(`${dirPath}/index.js`, 'utf8')
   const requireAuth = data.replace(/^#auth$/gm, "const jwt = require('express-jwt')")
-  const replaceMiddleware = requireAuth.replace(/#authMiddleware/g, 'jwt({secret: process.env.JWTKEY}),')
+  const replaceMiddleware = requireAuth.replace(/#authMiddleware/g, ' jwt({secret: process.env.JWTKEY}),')
   await fs.outputFileSync(`${dirPath}/index.js`, replaceMiddleware)
 }
 
