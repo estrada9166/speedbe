@@ -44,12 +44,12 @@ async function createFile (dirPath) {
 
 async function addRoute (dirPath, hasAuth) {
   const data = await fse.readFileSync(`${dirPath}/index.js`, 'utf8')
-  const requireAuth = data.replace(/^#image$/gm, "const image = require('./routes/uploadFile')")
+  const requireAuth = data.replace(/^#image$/gm, "const image = require('./routes/uploadFile');")
   let route
   if (hasAuth) {
-    route = requireAuth.replace(/#imageRoute/g, "app.post('/image', jwt({secret: process.env.JWTKEY}), image.uploadImage)")
+    route = requireAuth.replace(/#imageRoute/g, "app.post('/image', jwt({secret: process.env.JWTKEY}), image.uploadImage);")
   } else {
-    route = requireAuth.replace(/#imageRoute/g, "app.post('/image', image.uploadImage)")
+    route = requireAuth.replace(/#imageRoute/g, "app.post('/image', image.uploadImage);")
   }
   await fse.outputFileSync(`${dirPath}/index.js`, route)
 }

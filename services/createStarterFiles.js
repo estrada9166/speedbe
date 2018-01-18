@@ -16,6 +16,7 @@ async function createStarterFiles (dirPath) {
     await createIndexFile(dirPath)
     await createRoutesFile(dirPath)
     await createGitIgnoreFile(dirPath)
+    await createLinterFile(dirPath)
   } catch (err) {
     throw err
   }
@@ -33,6 +34,11 @@ async function createRoutesFile (dirPath) {
 async function createGitIgnoreFile (dirPath) {
   await fs.ensureDirSync(dirPath)
   await fs.copySync(`${templatesPath}/starterFileGitignore.txt`, `${dirPath}/.gitignore`)
+}
+
+async function createLinterFile (dirPath) {
+  await fs.ensureDirSync(dirPath)
+  await fs.copySync(`${templatesPath}/starterFileLinter.txt`, `${dirPath}/.eslintrc`)
 }
 
 module.exports = createStarterFiles

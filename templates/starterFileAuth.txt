@@ -1,16 +1,32 @@
-'use strict'
+'use strict';
 
 const jwt = require('jsonwebtoken');
 
 const newToken = (req, res) => {
+  // The idea is to validate this data object against your DB or local storage
+  // once this is valid then proceed to return the auth token
+  // a simple example will be:
+  //          if (data.password === 'YOUR_PASSWORD' && data.email === 'YOUR_EMAIL') {
+  //            const token = jwt.sign({ data }, jwtSecret, { expiresIn: '' + 1000 * 60 * 60 * 24 * 365 });
+  //            res.json({
+  //              success: true,
+  //              type: 'Bearer',
+  //              token
+  //            })
+  //          } else {
+  //            res.json({
+  //              success: false
+  //            })
+  //          }
   const data = req.body;
   const jwtSecret = process.env.JWTKEY;
+  // This token expires in 1000 years
   const token = jwt.sign({ data }, jwtSecret, { expiresIn: '' + 1000 * 60 * 60 * 24 * 365 });
   res.json({
     success: true,
     type: 'Bearer',
     token
-  })
-}
+  });
+};
 
-module.exports = { newToken }
+module.exports = { newToken };
