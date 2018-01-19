@@ -37,6 +37,16 @@ It should make multiples question, like:
 $ node index
 ```
 
+## Standard
+The project use standard, to run it simple run your project folder:
+```bash
+$ npm run standard
+```
+And if you want to fix all the issues automatically with the help of standard, run:
+```bash
+$ npm run standard-fix
+```
+
 ## JWT
 To use it you should create a JWT and set it in each request using the headers. It is with Bearer authentication.
 
@@ -62,6 +72,12 @@ POST /example| This is a /POST example, you just post ${test}
 PUT /example | This is a /PUT example, you just put ${test}
 DELETE /example | This is a /DELETE example, you just deleted ${test}
 
+## Deploy with Now
+You can deploy your project on a easy way usign [now](https://zeit.co/now), to use it you have to create a free account there. 
+
+Run `now` in your project folder to deploy. 
+
+Every time you run `now`, you get a new deployment! The first time you run now, it'll ask for your email address in order to identify you. Simply click on the email you've received, and you'll be logged in automatically.
 ## License
 ### The MIT License
 

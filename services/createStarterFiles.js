@@ -16,6 +16,7 @@ async function createStarterFiles (dirPath) {
     await createIndexFile(dirPath)
     await createRoutesFile(dirPath)
     await createGitIgnoreFile(dirPath)
+    await editPackageJson(dirPath)
   } catch (err) {
     throw err
   }
@@ -33,6 +34,14 @@ async function createRoutesFile (dirPath) {
 async function createGitIgnoreFile (dirPath) {
   await fs.ensureDirSync(dirPath)
   await fs.copySync(`${templatesPath}/starterFileGitignore.txt`, `${dirPath}/.gitignore`)
+}
+
+async function editPackageJson (dirPath) {
+  const data = await fs.readFileSync(`${dirPath}/package.json`, 'utf8').toString().split('\n')
+  const scriptPosition = data.indexOf('  "scripts": {')
+  data.splice(scriptPosition + 1, 0, '    "standard": "standard",\n    "standard-fix": "standard --fix",')
+  const text = data.join('\n')
+  await fs.outputFileSync(`${dirPath}/package.json`, text)
 }
 
 module.exports = createStarterFiles

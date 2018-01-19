@@ -27,7 +27,7 @@ async function createFolder (dirName) {
 }
 
 function createPackageJson (name, folderPath) {
-  new Promise(resolve => {
+  return new Promise(resolve => {
     resolve(spawnSync('sh', [`${path.join(__dirname, '..', 'scripts', 'createPackage.sh')}`], {
       cwd: folderPath
     }))

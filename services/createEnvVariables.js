@@ -26,12 +26,12 @@ async function createEnvVariables (dirPath) {
  * creates an example file of varibale.env that will be track by git and serve as example of env needed
  * @param  {String} dirName the name of the project and dirname
  */
-async function createExampleEnvVariables(dirPath) {
+async function createExampleEnvVariables (dirPath) {
   await fs.copySync(`${dirPath}/variables.env`, `${dirPath}/variables.env.example`)
 }
 
 function installDotenv (dirPath) {
-  new Promise(resolve => {
+  return new Promise(resolve => {
     resolve(spawnSync('sh', [`${path.join(__dirname, '..', 'scripts', 'installDotenv.sh')}`], {
       cwd: dirPath
     }))

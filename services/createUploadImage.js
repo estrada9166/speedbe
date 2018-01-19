@@ -26,7 +26,7 @@ async function createUploadImage (dirPath, hasAuth) {
 }
 
 function installAWSSdk (dirPath) {
-  new Promise(resolve => {
+  return new Promise(resolve => {
     resolve(spawnSync('sh', [`${path.join(__dirname, '..', 'scripts', 'installAWSSdk.sh')}`], {
       cwd: dirPath
     }))

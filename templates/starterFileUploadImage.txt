@@ -6,23 +6,22 @@ AWS.config.update({
 })
 
 const uploadImage = (req, res) => {
-  const file = req.body.file;
+  const file = req.body.file
 
-  const extension = file.filetype.split('/')[1];
-  const replaceFile = file.data_uri.replace(/^data:image\/\w+;base64,/, "")
-  const buf = new Buffer(replaceFile,'base64');
+  const replaceFile = file.data_uri.replace(/^data:image\/\w+;base64,/, '')
+  const buf = new Buffer(replaceFile,' base64')
 
-  const s3 = new AWS.S3();
+  const s3 = new AWS.S3()
   s3.upload({
-    Bucket: YOUR_BUCKET,
-    Key: YOUR_KEY,
+    Bucket: 'YOUR_BUCKET',
+    Key: 'YOUR_KEY',
     Body: buf,
     ACL: 'public-read'
   }, (err, data) => {
-    if (err) res.json({ success: false });
+    if (err) res.json({ success: false })
 
-    res.json({ success: true, fileUrl: data.Location})
-  });
+    res.json({ success: true, fileUrl: data.Location })
+  })
 }
 
 module.exports = { uploadImage }

@@ -8,6 +8,7 @@ const createStarterFiles = require('../services/createStarterFiles')
 const createAuth = require('../services/createAuth')
 const { createEnvVariables, createExampleEnvVariables } = require('../services/createEnvVariables')
 const createUploadImage = require('../services/createUploadImage')
+const createDeployWithNow = require('../services/createDeployWithNow')
 const cleanTemplate = require('../services/cleanTemplate')
 
 const questions = [
@@ -26,6 +27,11 @@ const questions = [
     type: 'confirm',
     name: 'uploadFiles',
     message: 'Want to upload files'
+  },
+  {
+    type: 'confirm',
+    name: 'now',
+    message: 'Want to deploy with now'
   }
 ]
 
@@ -45,6 +51,9 @@ async function handleResponse (answers) {
     }
     if (answers['uploadFiles']) {
       await createUploadImage(folderPath, answers['auth'])
+    }
+    if (answers['now']) {
+      await createDeployWithNow(folderPath)
     }
     await cleanTemplate(folderPath)
     await createExampleEnvVariables(folderPath)
