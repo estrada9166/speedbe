@@ -1,6 +1,6 @@
 {
   "name": "speedbe",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Create new backend proyects with node.js and express",
   "bin": {
     "speedbe": "./bin/speedbe.js"
