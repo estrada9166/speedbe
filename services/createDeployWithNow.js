@@ -51,7 +51,7 @@ async function editPackageJson (dirPath) {
   const mainPosition = data.indexOf('  "main": "index.js",')
   data.splice(mainPosition + 1, 0, '  "now": {\n    "dotenv": "variables.env.now"\n  },')
   const scriptPosition = data.indexOf('  "scripts": {')
-  data.splice(scriptPosition + 1, 0, '    "start": "node ./index.js",')
+  data.splice(scriptPosition + 1, 0, '    "start": "node ./index.js",\n    "deploy": "now",')
   const text = data.join('\n')
   await fs.outputFileSync(`${dirPath}/package.json`, text)
 }

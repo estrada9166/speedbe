@@ -73,11 +73,11 @@ PUT /example | This is a /PUT example, you just put ${test}
 DELETE /example | This is a /DELETE example, you just deleted ${test}
 
 ## Deploy with Now
-You can deploy your project on a easy way usign [now](https://zeit.co/now), to use it you have to create a free account there. 
-
-Run `now` in your project folder to deploy. 
-
-Every time you run `now`, you get a new deployment! The first time you run now, it'll ask for your email address in order to identify you. Simply click on the email you've received, and you'll be logged in automatically.
+Simple run:
+```bash
+$ npm run deploy
+```
+In case this is your first time using [now](https://zeit.co/now), follow the steps and thats all.
 ## License
 ### The MIT License
 
