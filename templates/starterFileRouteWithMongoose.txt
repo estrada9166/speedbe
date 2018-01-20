@@ -1,0 +1,63 @@
+'use strict'
+const mongoose = require('mongoose')
+const Example = mongoose.model('Example')
+
+const getExample = async (req, res) => {
+  try {
+    const identificator = 'A1'
+    const result = await Example.findOne({ identificator })
+    res.json({ success: true, example: result })
+  } catch (err) {
+    res.status(400).send(err)
+  }
+}
+
+const newExample = async (req, res) => {
+  try {
+    const {email, name} = req.body
+    if (!email) {
+      res.status(400).send({ error: 'Email is missing' })
+    }
+    if (!name) {
+      res.status(400).send({ error: 'Name is missing' })
+    }
+    const exampleObject = {
+      email,
+      name,
+      identificator: 'A1',
+      testField: 'This is a test field, if you check your database this field is encrypted',
+      otherTestField: 'This is otherTestField, if you check your database this field is encrypted'
+    }
+    const example = new Example(exampleObject)
+    const result = await example.save()
+    res.json({ success: true, example: result })
+  } catch (err) {
+    res.status(400).send(err)
+  }
+}
+
+const updateExample = async (req, res) => {
+  try {
+    const name = req.body.name
+    const identificator = 'A1'
+    if (!name) {
+      res.status(400).send({ error: 'Name is missing' })
+    }
+    const result = await Example.findOneAndUpdate({ identificator }, { $set: { name } }, { new: true })
+    res.json({ success: true, example: result })
+  } catch (err) {
+    res.status(400).send(err)
+  }
+}
+
+const deleteExample = async (req, res) => {
+  try {
+    const identificator = 'A1'
+    await Example.deleteOne({ identificator })
+    res.json({ success: true })
+  } catch (err) {
+    res.status(400).send(err)
+  }
+}
+
+module.exports = { getExample, newExample, updateExample, deleteExample }

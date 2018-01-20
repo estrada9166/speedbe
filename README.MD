@@ -23,8 +23,10 @@ It should make multiples question, like:
 ├── package-lock.json
 ├── package.json
 ├── routes
+├── models
 ├── variables.env
-└── variables.env.example
+├── variables.env.example
+└── variables.env.now
 ```
 `variables.env.example` is the file that serves as example for other people contributing to your project, it contains all the needed *env* variables with dummy values to be replaced after your project gets cloned (`variables.env` does not get tracked by git).
 
@@ -36,6 +38,18 @@ It should make multiples question, like:
 ```shell
 $ node index
 ```
+
+## Mongoose
+You can choose if you want to use [mongoose](http://mongoosejs.com/) in your project.
+
+If you choose to use it, we recomend you to create an account on [mlab](https://mlab.com/), it is free; after that create a new database. To use it your project, you should paste the MongoDB URI (the one that you find after creating the database) in the files `variables.env` and `variables.env.now`
+
+The models have others packages like:
++ validator: in this case we use it to validate if it is a valid email. You can find the package [here](https://www.npmjs.com/package/validator)
++ mongoose-mongodb-errors: it is a plugin to transform mongodb like errors (E.G. "11000 - duplicate key") into Mongoose ValidationError instances. You can find the package [here](https://www.npmjs.com/package/mongoose-mongodb-errors)
++ mongoose-cipher: it is a plugin to encrypt the fields that you select before saving them on the database. You can find the package [here](https://www.npmjs.com/package/mongoose-cipher)
+
+Almost all the fields of the database are using `trim`, it means that if a user is trying to save strings like `"  hello"`, or `"hello  "`, or `"  hello  "`, would end up being saved as `"hello"`.
 
 ## Standard
 The project use standard, to run it simple run your project folder:
@@ -65,19 +79,29 @@ The response should be something like:
 To learn more about JWT click [here](https://jwt.io/)
 
 ## Endpoints
-Request      | Response
--------------|------------------------
+### With Mongoose
+Request      | Response 
+-------------|----------------------------
+GET /example | This will return the example with identificator `A1`
+POST /example| This will create a new example
+PUT /example | This will update the name of the example with identificator `A1`
+DELETE /example | This will delete the user with identificator `A1`
+
+### With out Mongoose
+Request      | Response 
+-------------|----------------------------
 GET /example | This is a /GET example
 POST /example| This is a /POST example, you just post ${test}
 PUT /example | This is a /PUT example, you just put ${test}
 DELETE /example | This is a /DELETE example, you just deleted ${test}
-
 ## Deploy with Now
 Simple run:
 ```bash
 $ npm run deploy
 ```
-In case this is your first time using [now](https://zeit.co/now), follow the steps and thats all.
+In case this is your first time using [now](https://zeit.co/now), follow the steps and that's all.
+
+The file `variables.env.now` is used to set the environment variables in your deploy, the file is not uploaded to the server, `now` read it and set the variables on a secure environment for you.
 ## License
 ### The MIT License
 

@@ -8,6 +8,7 @@ const createStarterFiles = require('../services/createStarterFiles')
 const createAuth = require('../services/createAuth')
 const { createEnvVariables, createExampleEnvVariables } = require('../services/createEnvVariables')
 const createUploadImage = require('../services/createUploadImage')
+const createMongooseIntegration = require('../services/createMongooseIntegration')
 const createDeployWithNow = require('../services/createDeployWithNow')
 const cleanTemplate = require('../services/cleanTemplate')
 
@@ -22,6 +23,11 @@ const questions = [
     type: 'confirm',
     name: 'auth',
     message: 'Has authentication'
+  },
+  {
+    type: 'confirm',
+    name: 'db',
+    message: 'Want to use mongoose'
   },
   {
     type: 'confirm',
@@ -43,11 +49,14 @@ async function handleResponse (answers) {
   try {
     spinner.start()
     const folderPath = await createPackage(answers['name'])
-    await createStarterFiles(folderPath)
+    await createStarterFiles(folderPath, answers['db'])
     await createEnvVariables(folderPath)
 
     if (answers['auth']) {
       await createAuth(folderPath)
+    }
+    if (answers['db']) {
+      await createMongooseIntegration(folderPath)
     }
     if (answers['uploadFiles']) {
       await createUploadImage(folderPath, answers['auth'])

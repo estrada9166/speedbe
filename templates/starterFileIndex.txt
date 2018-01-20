@@ -2,7 +2,10 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 #auth
+#mongoose
 #dotenv
+
+#connectMongoose
 
 // Require all the routes
 const example = require('./routes/example')

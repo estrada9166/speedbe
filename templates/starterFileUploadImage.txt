@@ -1,15 +1,15 @@
 const AWS = require('aws-sdk')
 
-AWS.config.update({ 
-  accessKeyId: process.env.AWS_ACCESS_KEY, 
-  secretAccessKey: process.env.AWS_SECRET 
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_SECRET
 })
 
 const uploadImage = (req, res) => {
   const file = req.body.file
 
   const replaceFile = file.data_uri.replace(/^data:image\/\w+;base64,/, '')
-  const buf = new Buffer(replaceFile,' base64')
+  const buf = new Buffer(replaceFile, 'base64')
 
   const s3 = new AWS.S3()
   s3.upload({
